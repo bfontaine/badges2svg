@@ -52,6 +52,33 @@ class BadgesToSVGTests < Test::Unit::TestCase
                  BadgesToSVG.compile_pattern("%{a}/%{b}").to_s)
   end
 
+  # == BadgesToSVG#root_url == #
+
+  def test_root_url_default
+    assert_equal("https://img.shields.io", BadgesToSVG.root_url)
+  end
+
+  def test_root_url_custom_protocol
+    assert_equal("foobar://img.shields.io",
+                 BadgesToSVG.root_url(:protocol => 'foobar'))
+    assert_equal("http://img.shields.io",
+                 BadgesToSVG.root_url(:protocol => 'http'))
+  end
+
+  def test_root_url_custom_protocol_symbol
+    assert_equal("foobar://img.shields.io",
+                 BadgesToSVG.root_url(:protocol => :foobar))
+  end
+
+  def test_root_url_custom_domain
+    assert_equal("https://bar", BadgesToSVG.root_url(:domain => 'bar'))
+  end
+
+  def test_root_url_custom_protocol_and_domain
+    s = "foo://bar"
+    assert_equal(s, BadgesToSVG.root_url(:protocol => 'foo', :domain => 'bar'))
+  end
+
   # == BadgesToSVG#replace == #
 
   def test_replace_empty_file
@@ -237,6 +264,29 @@ class BadgesToSVGTests < Test::Unit::TestCase
     ct1 = "![](https://img.shields.io/foo/bar-qux/zzz.png)"
     ct2 = ct1.sub(/\.png/, '.svg').sub(/http:/, 'https:')
     assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  ## with options
+
+  ### custom protocol
+
+  def test_replace_with_custom_protocol
+    ct1 = '![](https://poser.pugx.org/foo/bar/d/total.png)'
+    ct2 = '![](foo://img.shields.io/packagist/dm/foo/bar.svg)'
+    assert_equal(ct2, BadgesToSVG.replace(ct1, :protocol => :foo))
+  end
+
+  def test_replace_with_custom_domain
+    ct1 = '![](https://poser.pugx.org/foo/bar/d/total.png)'
+    ct2 = '![](https://foobar.io/packagist/dm/foo/bar.svg)'
+    assert_equal(ct2, BadgesToSVG.replace(ct1, :domain => 'foobar.io'))
+  end
+
+  def test_replace_with_custom_protocol_domain
+    ct1 = '![](https://poser.pugx.org/foo/bar/d/total.png)'
+    ct2 = '![](http://foobar.io/packagist/dm/foo/bar.svg)'
+    assert_equal(ct2, BadgesToSVG.replace(ct1, :protocol => :http,
+                                               :domain => 'foobar.io'))
   end
 
 end

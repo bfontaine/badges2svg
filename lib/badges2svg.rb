@@ -1,7 +1,9 @@
 module BadgesToSVG
-  class << self
 
-    ROOT = 'https://img.shields.io'
+  @protocol = 'https'
+  @domain = 'img.shields.io'
+
+  class << self
 
     # see http://shields.io/
     RULES = [
@@ -85,15 +87,20 @@ module BadgesToSVG
       '0.1.0'
     end
 
+    def root_url(opts={})
+      "#{opts[:protocol] || @protocol}://#{opts[:domain] || @domain}"
+    end
+
     def compile_pattern(pat, *a)
       pat = pat.gsub(/\./, '\\.')
       Regexp.new ("\\b#{pat.gsub(/%\{(\w+)\}/, "(?<\\1>.+?)")}\\b")
     end
 
-    def replace content
+    def replace content, opts={}
+      root = root_url(opts)
       RULES.each do |r|
         pat  = compile_pattern(r[:pattern])
-        repl = ROOT + r[:string].gsub(/%\{(\w+)\}/, "\\\\k<\\1>")
+        repl = root + r[:string].gsub(/%\{(\w+)\}/, "\\\\k<\\1>")
         content.gsub!(pat, repl)
       end
 
