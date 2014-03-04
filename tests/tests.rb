@@ -161,6 +161,20 @@ class BadgesToSVGTests < Test::Unit::TestCase
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
+  ## misc
+
+  def test_replace_misc_png_http
+    ct1 = "![](http://img.shields.io/foo/bar-qux/zzz.png)"
+    ct2 = ct1.sub(/\.png/, '.svg').sub(/http:/, 'https:')
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_misc_png_https
+    ct1 = "![](https://img.shields.io/foo/bar-qux/zzz.png)"
+    ct2 = ct1.sub(/\.png/, '.svg').sub(/http:/, 'https:')
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
 end
 
 

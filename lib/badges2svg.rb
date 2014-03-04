@@ -40,7 +40,13 @@ module BadgesToSVG
         :name    => :gem_version,
         :pattern => 'https?://badge.fury.io/rb/%{repo}.png',
         :string  => '/gem/v/%{repo}.svg'
-      }
+      },
+
+      {
+        :name    => :misc_png,
+        :pattern => 'https?://img.shields.io/%{path}.png',
+        :string  => '/%{path}.svg'
+      },
     ]
 
     def version
