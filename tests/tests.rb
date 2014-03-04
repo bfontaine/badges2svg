@@ -48,8 +48,8 @@ class BadgesToSVGTests < Test::Unit::TestCase
   end
 
   def test_compile_pattern_with_multiple_field_names
-    assert_equal(/\b(?<a>.+?)\/(?<b>.+?)\b/,
-                 BadgesToSVG.compile_pattern("%{a}/%{b}"))
+    assert_equal(/\b(?<a>.+?)\/(?<b>.+?)\b/.to_s,
+                 BadgesToSVG.compile_pattern("%{a}/%{b}").to_s)
   end
 
   # == BadgesToSVG#replace == #
