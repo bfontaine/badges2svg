@@ -90,11 +90,11 @@ module BadgesToSVG
       Regexp.new ("\\b#{pat.gsub(/%\{(\w+)\}/, "(?<\\1>.+?)")}\\b")
     end
 
-    def replace ct
-      content = ct.clone
+    def replace content
       RULES.each do |r|
-        content.gsub!(compile_pattern(r[:pattern]),
-                      ROOT + r[:string].gsub(/%\{(\w+)\}/, "\\\\k<\\1>"))
+        pat  = compile_pattern(r[:pattern])
+        repl = ROOT + r[:string].gsub(/%\{(\w+)\}/, "\\\\k<\\1>")
+        content.gsub!(pat, repl)
       end
 
       content
