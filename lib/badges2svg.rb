@@ -31,6 +31,16 @@ module BadgesToSVG
         :pattern => 'https?://coveralls.io/repos/%{user}/%{repo}/badge.png',
         :string  => '/coveralls/%{user}/%{repo}.svg'
       },
+      {
+        :name    => :gemnasium,
+        :pattern => 'https?://gemnasium.com/%{user}/%{repo}.png',
+        :string  => '/gemnasium/%{user}/%{repo}.svg'
+      },
+      {
+        :name    => :gem_version,
+        :pattern => 'https?://badge.fury.io/rb/%{repo}.png',
+        :string  => '/gem/v/%{repo}.svg'
+      }
     ]
 
     def version

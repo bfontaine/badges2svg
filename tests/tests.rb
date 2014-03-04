@@ -133,6 +133,34 @@ class BadgesToSVGTests < Test::Unit::TestCase
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
+  ## gem_version
+
+  def test_replace_one_gem_version_http
+    ct1 = "![](http://badge.fury.io/rb/t.png)"
+    ct2 = "![](https://img.shields.io/gem/v/t.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_gem_version_https
+    ct1 = "![](https://badge.fury.io/rb/t.png)"
+    ct2 = "![](https://img.shields.io/gem/v/t.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  ## gemnasium
+
+  def test_replace_one_gemnasium_http
+    ct1 = "![](http://gemnasium.com/sferik/t.png)"
+    ct2 = "![](https://img.shields.io/gemnasium/sferik/t.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_gemnasium_https
+    ct1 = "![](https://gemnasium.com/sferik/t.png)"
+    ct2 = "![](https://img.shields.io/gemnasium/sferik/t.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
 end
 
 
