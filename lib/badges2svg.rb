@@ -6,13 +6,13 @@ module BadgesToSVG
     # see http://shields.io/
     RULES = [
       { :name    => :travis_branch,
-        :pattern => 'https?://travis-ci.org/%{user}/%{repo}.png' +
+        :pattern => 'https?://(?:secure.)?travis-ci.org/%{user}/%{repo}.png' +
                       '\\?branch=%{branch}',
         :string  => '/travis/%{user}/%{repo}/%{branch}.svg'
       },
       {
         :name    => :travis,
-        :pattern => 'https?://travis-ci.org/%{user}/%{repo}.png',
+        :pattern => 'https?://(?:secure.)?travis-ci.org/%{user}/%{repo}.png',
         :string  => '/travis/%{user}/%{repo}.svg'
       },
       {
@@ -37,9 +37,29 @@ module BadgesToSVG
         :string  => '/gemnasium/%{user}/%{repo}.svg'
       },
       {
+        :name    => :code_climate,
+        :pattern => 'https://codeclimate.com/github/%{user}/%{repo}.png',
+        :string  => '/codeclimate/github/%{user}/%{repo}.svg'
+      },
+      {
         :name    => :gem_version,
-        :pattern => 'https?://badge.fury.io/rb/%{repo}.png',
+        :pattern => 'https?://badge.fury.io/rb/%{repo}(?:@2x)?.png',
         :string  => '/gem/v/%{repo}.svg'
+      },
+      {
+        :name    => :npm_version,
+        :pattern => 'https?://badge.fury.io/js/%{repo}(?:@2x)?.png',
+        :string  => '/npm/v/%{repo}.svg'
+      },
+      {
+        :name    => :pypi_version,
+        :pattern => 'https?://badge.fury.io/py/%{repo}(?:@2x)?.png',
+        :string  => '/pypi/v/%{repo}.svg'
+      },
+      {
+        :name    => :packagist_version,
+        :pattern => 'https?://poser.pugx.org/%{user}/%{repo}/d/total.png',
+        :string  => '/packagist/v/%{user}/%{repo}.svg'
       },
 
       {

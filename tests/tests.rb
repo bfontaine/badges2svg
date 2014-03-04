@@ -66,7 +66,7 @@ class BadgesToSVGTests < Test::Unit::TestCase
   ## travis
 
   def test_replace_one_travis_https
-    ct1 = "# README\n\nHello ![](https://travis-ci.org/usr/re.png)"
+    ct1 = "# README\n\nHello ![](https://secure.travis-ci.org/usr/re.png)"
     ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re.svg)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
@@ -80,7 +80,7 @@ class BadgesToSVGTests < Test::Unit::TestCase
   ## travis_branch
 
   def test_replace_one_travis_branch_https
-    ct1 = "# README\n\nHello ![](https://travis-ci.org/usr/re.png?branch=bx)"
+    ct1 = "# README\n\nHello ![](https://secure.travis-ci.org/usr/re.png?branch=bx)"
     ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re/bx.svg)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
@@ -133,20 +133,6 @@ class BadgesToSVGTests < Test::Unit::TestCase
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
-  ## gem_version
-
-  def test_replace_one_gem_version_http
-    ct1 = "![](http://badge.fury.io/rb/t.png)"
-    ct2 = "![](https://img.shields.io/gem/v/t.svg)"
-    assert_equal(ct2, BadgesToSVG.replace(ct1))
-  end
-
-  def test_replace_one_gem_version_https
-    ct1 = "![](https://badge.fury.io/rb/t.png)"
-    ct2 = "![](https://img.shields.io/gem/v/t.svg)"
-    assert_equal(ct2, BadgesToSVG.replace(ct1))
-  end
-
   ## gemnasium
 
   def test_replace_one_gemnasium_http
@@ -160,6 +146,72 @@ class BadgesToSVGTests < Test::Unit::TestCase
     ct2 = "![](https://img.shields.io/gemnasium/sferik/t.svg)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
+
+  ## code_climate
+
+  def test_replace_one_code_climate
+    ct1 = "![](https://codeclimate.com/github/rails/rails.png)"
+    ct2 = "![](https://img.shields.io/codeclimate/github/rails/rails.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  ## *_version
+
+  ### gem
+
+  def test_replace_one_gem_version
+    ct1 = "![](https://badge.fury.io/rb/t.png)"
+    ct2 = "![](https://img.shields.io/gem/v/t.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_gem_version_retina
+    ct1 = "![](https://badge.fury.io/rb/t@2x.png)"
+    ct2 = "![](https://img.shields.io/gem/v/t.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  ### pypi
+
+  def test_replace_one_pypi_version
+    ct1 = '![](https://badge.fury.io/py/gnuplot-py.png)'
+    ct2 = '![](https://img.shields.io/pypi/v/gnuplot-py.svg)'
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_pypi_version_retina
+    ct1 = '![](https://badge.fury.io/py/gnuplot-py@2x.png)'
+    ct2 = '![](https://img.shields.io/pypi/v/gnuplot-py.svg)'
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  ### npm
+
+  def test_replace_one_npm_version
+    ct1 = '![](https://badge.fury.io/js/tp.png)'
+    ct2 = '![](https://img.shields.io/npm/v/tp.svg)'
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_npm_version_retina
+    ct1 = '![](https://badge.fury.io/js/tp@2x.png)'
+    ct2 = '![](https://img.shields.io/npm/v/tp.svg)'
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  ### packagist
+
+  def test_replace_one_packagist_version
+    ct1 = '![](https://poser.pugx.org/foo/bar/d/total.png)'
+    ct2 = '![](https://img.shields.io/packagist/v/foo/bar.svg)'
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  ## *_downloads
+
+  ### npm
+  ### pypi
+  ### packagist
 
   ## misc
 
