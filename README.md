@@ -1,7 +1,9 @@
 # badges2svg
 
 **badges2svg** is a command-line tool to replace your GitHub README badges with
-SVG versions.
+resolution-independent SVG versions from [shields.io][].
+
+[shields.io]: http://shields.io/
 
 ## Install
 
@@ -19,11 +21,28 @@ $ badges2svg <file>
 
 ## Example
 
-TODO
+```
+$ badges2svg README.md
+```
+
+<!-- TODO show 'cat README' before and after -->
 
 ## Support
 
-TODO
+| Type                | Support   |
+|---------------------|:---------:|
+| Travis build        | ✔         |
+| Gittip              | ✔         |
+| Coveralls           | ✔         |
+| Gemnasium           | ✔         |
+| Code Climate        | ✔         |
+| Gem version         | ✔         |
+| PyPI version        | ✔         |
+| Packagist version   | ✔         |
+| PyPI downloads      | ✔         |
+| Packagist downloads | ✔         |
+
+Additionally, all badges that already use shields.io are supported.
 
 ## Tests
 
@@ -31,6 +50,6 @@ TODO
 $ git clone https://github.com/bfontaine/badges2svg.git
 $ cd badges2svg
 $ bundle install
-$ rake test
+$ bundle exec rake test
 ```
 
