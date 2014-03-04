@@ -19,13 +19,14 @@ From the command-line:
 $ badges2svg <file>
 ```
 
+<!--
 ## Example
 
 ```
 $ badges2svg README.md
 ```
 
-<!-- TODO show 'cat README' before and after -->
+TODO show 'cat README' before and after -->
 
 ## Support
 
