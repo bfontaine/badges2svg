@@ -7,11 +7,16 @@ require 'badges2svg'
 opts = Trollop.options do
   version "badges2svg #{BadgesToSVG.version}"
   banner <<-EOS
-badges2svg is a tool to replace your PNG GitHub badges into SVG ones.
+badges2svg is a tool to replace your PNG GitHub badges with resolution-independant SVG ones.
 
 Usage:
-    badges2svg <file>
+    badges2svg [options] <file>
+
+where [options] are:
 EOS
+
+  opt :https, 'use HTTPS in URLs', :default => true, :short => '-H'
+
 end
 
 if ARGV.empty?
@@ -22,5 +27,5 @@ end
 content = File.read(ARGV[0])
 
 File.open(ARGV[0], 'w') do |f|
-  f.write(BadgesToSVG.replace(content))
+  f.write(BadgesToSVG.replace(content, opts))
 end

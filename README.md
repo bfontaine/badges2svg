@@ -24,6 +24,9 @@ From the command-line:
 $ badges2svg <file>
 ```
 
+By default, all URLs use HTTPS. If you don’t want this behavior, use
+`--no-https`.
+
 <!--
 ## Example
 
