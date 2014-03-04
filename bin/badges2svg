@@ -24,7 +24,10 @@ if ARGV.empty?
   exit 1
 end
 
-content = File.read(ARGV[0])
+if ARGV[0] == '-'
+  print BadgesToSVG.replace(STDIN.read, opts)
+  exit 0
+end
 
 File.open(ARGV[0], 'w') do |f|
   f.write(BadgesToSVG.replace(content, opts))
