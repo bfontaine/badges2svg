@@ -29,26 +29,26 @@ class BadgesToSVGTests < Test::Unit::TestCase
   # == BadgesToSVG#compile_pattern == #
 
   def test_compile_pattern_empty
-    assert_equal(/^$/, BadgesToSVG.compile_pattern(""))
+    assert_equal(/\b\b/, BadgesToSVG.compile_pattern(""))
   end
 
   def test_compile_pattern_no_special_chars
-    assert_equal(/^foobar$/, BadgesToSVG.compile_pattern("foobar"))
-    assert_equal(/^q-a yo$/, BadgesToSVG.compile_pattern("q-a yo"))
+    assert_equal(/\bfoobar\b/, BadgesToSVG.compile_pattern("foobar"))
+    assert_equal(/\bq-a yo\b/, BadgesToSVG.compile_pattern("q-a yo"))
   end
 
   def test_compile_pattern_with_special_chars
-    assert_equal(/^foo.bar$/, BadgesToSVG.compile_pattern("foo.bar"))
-    assert_equal(/^a?$/, BadgesToSVG.compile_pattern("a?"))
+    assert_equal(/\bfoo.bar\b/, BadgesToSVG.compile_pattern("foo.bar"))
+    assert_equal(/\ba?\b/, BadgesToSVG.compile_pattern("a?"))
   end
 
   def test_compile_pattern_with_one_field_name
-    assert_equal(/^(?<abc>.+?)$/, BadgesToSVG.compile_pattern("%{abc}"))
-    assert_equal(/^a?$/, BadgesToSVG.compile_pattern("a?"))
+    assert_equal(/\b(?<abc>.+?)\b/, BadgesToSVG.compile_pattern("%{abc}"))
+    assert_equal(/\ba?\b/, BadgesToSVG.compile_pattern("a?"))
   end
 
   def test_compile_pattern_with_multiple_field_names
-    assert_equal(/^(?<a>.+?)\/(?<b>.+?)$/,
+    assert_equal(/\b(?<a>.+?)\/(?<b>.+?)\b/,
                  BadgesToSVG.compile_pattern("%{a}/%{b}"))
   end
 
@@ -61,6 +61,30 @@ class BadgesToSVGTests < Test::Unit::TestCase
   def test_replace_simple_file
     ct = "# README\n\nHello World!"
    assert_equal(ct, BadgesToSVG.replace(ct))
+  end
+
+  def test_replace_one_travis_https
+    ct1 = "# README\n\nHello ![](https://travis-ci.org/usr/re.png)"
+    ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re.svg)"
+   assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_travis_http
+    ct1 = "# README\n\nHello ![](http://travis-ci.org/usr/re.png)"
+    ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re.svg)"
+   assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_travis_branch_https
+    ct1 = "# README\n\nHello ![](https://travis-ci.org/usr/re.png?branch=bx)"
+    ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re/bx.svg)"
+   assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_travis_branch_http
+    ct1 = "# README\n\nHello ![](http://travis-ci.org/usr/re.png?branch=aa)"
+    ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re/aa.svg)"
+   assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
 end
