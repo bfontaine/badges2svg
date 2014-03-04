@@ -41,6 +41,7 @@ module BadgesToSVG
         :pattern => 'https://codeclimate.com/github/%{user}/%{repo}.png',
         :string  => '/codeclimate/github/%{user}/%{repo}.svg'
       },
+
       {
         :name    => :gem_version,
         :pattern => 'https?://badge.fury.io/rb/%{repo}(?:@2x)?.png',
@@ -58,8 +59,19 @@ module BadgesToSVG
       },
       {
         :name    => :packagist_version,
-        :pattern => 'https?://poser.pugx.org/%{user}/%{repo}/d/total.png',
+        :pattern => 'https?://poser.pugx.org/%{user}/%{repo}/version.png',
         :string  => '/packagist/v/%{user}/%{repo}.svg'
+      },
+
+      {
+        :name    => :packagist_downloads,
+        :pattern => 'https?://poser.pugx.org/%{user}/%{repo}/d/total.png',
+        :string  => '/packagist/dm/%{user}/%{repo}.svg'
+      },
+      {
+        :name    => :pypi_downloads,
+        :pattern => 'https?://pypip.in/d/%{repo}/badge.png',
+        :string  => '/pypi/dm/%{repo}.svg'
       },
 
       {

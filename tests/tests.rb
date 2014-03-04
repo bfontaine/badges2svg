@@ -202,16 +202,28 @@ class BadgesToSVGTests < Test::Unit::TestCase
   ### packagist
 
   def test_replace_one_packagist_version
-    ct1 = '![](https://poser.pugx.org/foo/bar/d/total.png)'
+    ct1 = '![](https://poser.pugx.org/foo/bar/version.png)'
     ct2 = '![](https://img.shields.io/packagist/v/foo/bar.svg)'
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
   ## *_downloads
 
-  ### npm
   ### pypi
+
+  def test_replace_one_pypi_downloads
+    ct1 = '![](https://pypip.in/d/cpe/badge.png)'
+    ct2 = '![](https://img.shields.io/pypi/dm/cpe.svg)'
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
   ### packagist
+
+  def test_replace_one_packagist_downloads
+    ct1 = '![](https://poser.pugx.org/foo/bar/d/total.png)'
+    ct2 = '![](https://img.shields.io/packagist/dm/foo/bar.svg)'
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
 
   ## misc
 
