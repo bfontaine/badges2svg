@@ -38,7 +38,7 @@ class BadgesToSVGTests < Test::Unit::TestCase
   end
 
   def test_compile_pattern_with_special_chars
-    assert_equal(/\bfoo.bar\b/, BadgesToSVG.compile_pattern("foo.bar"))
+    assert_equal(/\bfoo\.bar\b/, BadgesToSVG.compile_pattern("foo.bar"))
     assert_equal(/\ba?\b/, BadgesToSVG.compile_pattern("a?"))
   end
 
@@ -60,31 +60,77 @@ class BadgesToSVGTests < Test::Unit::TestCase
 
   def test_replace_simple_file
     ct = "# README\n\nHello World!"
-   assert_equal(ct, BadgesToSVG.replace(ct))
+    assert_equal(ct, BadgesToSVG.replace(ct))
   end
+
+  ## travis
 
   def test_replace_one_travis_https
     ct1 = "# README\n\nHello ![](https://travis-ci.org/usr/re.png)"
     ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re.svg)"
-   assert_equal(ct2, BadgesToSVG.replace(ct1))
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
   def test_replace_one_travis_http
     ct1 = "# README\n\nHello ![](http://travis-ci.org/usr/re.png)"
     ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re.svg)"
-   assert_equal(ct2, BadgesToSVG.replace(ct1))
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
+
+  ## travis_branch
 
   def test_replace_one_travis_branch_https
     ct1 = "# README\n\nHello ![](https://travis-ci.org/usr/re.png?branch=bx)"
     ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re/bx.svg)"
-   assert_equal(ct2, BadgesToSVG.replace(ct1))
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
   def test_replace_one_travis_branch_http
     ct1 = "# README\n\nHello ![](http://travis-ci.org/usr/re.png?branch=aa)"
     ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re/aa.svg)"
-   assert_equal(ct2, BadgesToSVG.replace(ct1))
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  ## gittip
+
+  def test_replace_one_gittip_http
+    ct1 = "here is a badge: ![](http://img.shields.io/gittip/sferik.png)"
+    ct2 = "here is a badge: ![](https://img.shields.io/gittip/sferik.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_gittip_https
+    ct1 = "here is a badge: ![](https://img.shields.io/gittip/sferik.png)"
+    ct2 = "here is a badge: ![](https://img.shields.io/gittip/sferik.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  ## coveralls
+
+  def test_replace_one_coveralls_http
+    ct1 = "hello ![](http://coveralls.io/repos/sferik/t/badge.png)"
+    ct2 = "hello ![](https://img.shields.io/coveralls/sferik/t.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_coveralls_https
+    ct1 = "hello ![](https://coveralls.io/repos/sferik/t/badge.png)"
+    ct2 = "hello ![](https://img.shields.io/coveralls/sferik/t.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  ## coveralls_branch
+
+  def test_replace_one_coveralls_branch_http
+    ct1 = "hello ![](http://coveralls.io/repos/sferik/t/badge.png?branch=abc)"
+    ct2 = "hello ![](https://img.shields.io/coveralls/sferik/t/abc.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_coveralls_branch_https
+    ct1 = "hello ![](https://coveralls.io/repos/sferik/t/badge.png?branch=abc)"
+    ct2 = "hello ![](https://img.shields.io/coveralls/sferik/t/abc.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
 end

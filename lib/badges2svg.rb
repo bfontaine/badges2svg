@@ -6,14 +6,30 @@ module BadgesToSVG
     # see http://shields.io/
     RULES = [
       { :name    => :travis_branch,
-        :pattern => 'https?://travis-ci\\.org/%{user}/%{repo}\\.png\\?' +
-                      'branch=%{branch}',
+        :pattern => 'https?://travis-ci.org/%{user}/%{repo}.png' +
+                      '\\?branch=%{branch}',
         :string  => '/travis/%{user}/%{repo}/%{branch}.svg'
       },
       {
         :name    => :travis,
-        :pattern => 'https?://travis-ci\\.org/%{user}/%{repo}\\.png',
+        :pattern => 'https?://travis-ci.org/%{user}/%{repo}.png',
         :string  => '/travis/%{user}/%{repo}.svg'
+      },
+      {
+        :name    => :gittip,
+        :pattern => 'https?://img.shields.io/gittip/%{user}.png',
+        :string  => '/gittip/%{user}.svg'
+      },
+      {
+        :name    => :coveralls_branch,
+        :pattern => 'https?://coveralls.io/repos/%{user}/%{repo}/badge.png' +
+                      '\\?branch=%{branch}',
+        :string  => '/coveralls/%{user}/%{repo}/%{branch}.svg'
+      },
+      {
+        :name    => :coveralls,
+        :pattern => 'https?://coveralls.io/repos/%{user}/%{repo}/badge.png',
+        :string  => '/coveralls/%{user}/%{repo}.svg'
       },
     ]
 
@@ -22,6 +38,7 @@ module BadgesToSVG
     end
 
     def compile_pattern(pat, *a)
+      pat = pat.gsub(/\./, '\\.')
       Regexp.new ("\\b#{pat.gsub(/%\{(\w+)\}/, "(?<\\1>.+?)")}\\b")
     end
 
