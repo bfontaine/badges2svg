@@ -18,10 +18,10 @@ Gem::Specification.new do |s|
     s.require_path  = 'lib'
     s.executables  << 'badges2svg'
 
-    s.add_runtime_dependency 'trollop',  '~>2.0'
+    s.add_runtime_dependency 'trollop', '~>2.0'
 
-    s.add_development_dependency 'simplecov'
-    s.add_development_dependency 'rake'
-    s.add_development_dependency 'test-unit'
-    s.add_development_dependency 'coveralls'
+    s.add_development_dependency 'simplecov', '~>0.8'
+    s.add_development_dependency 'rake', '~>10.1'
+    s.add_development_dependency 'test-unit', '~>2.5'
+    s.add_development_dependency 'coveralls', '~>0.7'
 end

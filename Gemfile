@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'coveralls', require: false
+gem 'coveralls', '~> 0.7', require: false
 
-gem 'trollop',  '~> 2.0'
+gem 'trollop', '~> 2.0'
 
 group :test do
-  gem 'simplecov', :require => false
-  gem 'rake'
-  gem 'test-unit'
+  gem 'simplecov', '~> 0.8', :require => false
+  gem 'rake', '~> 10.1'
+  gem 'test-unit', '~> 2.5'
 end
