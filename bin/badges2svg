@@ -29,6 +29,7 @@ if ARGV[0] == '-'
   exit 0
 end
 
+content = File.read(ARGV[0])
 File.open(ARGV[0], 'w') do |f|
   f.write(BadgesToSVG.replace(content, opts))
 end
