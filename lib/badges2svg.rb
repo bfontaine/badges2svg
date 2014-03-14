@@ -24,13 +24,13 @@ module BadgesToSVG
       },
       {
         :name    => :coveralls_branch,
-        :pattern => 'https?://coveralls.io/repos/%{user}/%{repo}/badge.png' +
+        :pattern => 'https?://coveralls.io/r(epos)?/%{user}/%{repo}/badge.png' +
                       '\\?branch=%{branch}',
         :string  => '/coveralls/%{user}/%{repo}/%{branch}.svg'
       },
       {
         :name    => :coveralls,
-        :pattern => 'https?://coveralls.io/repos/%{user}/%{repo}/badge.png',
+        :pattern => 'https?://coveralls.io/r(epos)?/%{user}/%{repo}/badge.png',
         :string  => '/coveralls/%{user}/%{repo}.svg'
       },
       {

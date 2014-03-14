@@ -146,6 +146,18 @@ class BadgesToSVGTests < Test::Unit::TestCase
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
+  def test_replace_one_coveralls_http_short
+    ct1 = "hello ![](http://coveralls.io/r/sferik/t/badge.png)"
+    ct2 = "hello ![](https://img.shields.io/coveralls/sferik/t.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_coveralls_https_short
+    ct1 = "hello ![](https://coveralls.io/r/sferik/t/badge.png)"
+    ct2 = "hello ![](https://img.shields.io/coveralls/sferik/t.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
   ## coveralls_branch
 
   def test_replace_one_coveralls_branch_http
@@ -156,6 +168,18 @@ class BadgesToSVGTests < Test::Unit::TestCase
 
   def test_replace_one_coveralls_branch_https
     ct1 = "hello ![](https://coveralls.io/repos/sferik/t/badge.png?branch=abc)"
+    ct2 = "hello ![](https://img.shields.io/coveralls/sferik/t/abc.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_coveralls_branch_http_short
+    ct1 = "hello ![](http://coveralls.io/r/sferik/t/badge.png?branch=abc)"
+    ct2 = "hello ![](https://img.shields.io/coveralls/sferik/t/abc.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_coveralls_branch_https_short
+    ct1 = "hello ![](https://coveralls.io/r/sferik/t/badge.png?branch=abc)"
     ct2 = "hello ![](https://img.shields.io/coveralls/sferik/t/abc.svg)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
