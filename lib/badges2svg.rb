@@ -10,12 +10,14 @@ module BadgesToSVG
       { :name    => :travis_branch,
         :pattern => 'https?://(?:secure.)?travis-ci.org/%{user}/%{repo}.png' +
                       '\\?branch=%{branch}',
-        :string  => '/travis/%{user}/%{repo}/%{branch}.svg'
+        :string  => 'travis-ci.org/%{user}/%{repo}.svg?branch=%{branch}',
+        :domain  => true
       },
       {
         :name    => :travis,
         :pattern => 'https?://(?:secure.)?travis-ci.org/%{user}/%{repo}.png',
-        :string  => '/travis/%{user}/%{repo}.svg'
+        :string  => 'travis-ci.org/%{user}/%{repo}.svg',
+        :domain  => true
       },
       {
         :name    => :gittip,
@@ -99,8 +101,14 @@ module BadgesToSVG
     def replace content, opts={}
       root = root_url(opts)
       RULES.each do |r|
+        if r[:domain]
+          myroot = root_url({}.update(opts).update({:domain => ''}))
+        else
+          myroot = root
+        end
+
         pat  = compile_pattern(r[:pattern])
-        repl = root + r[:string].gsub(/%\{(\w+)\}/, "\\\\k<\\1>")
+        repl = myroot + r[:string].gsub(/%\{(\w+)\}/, "\\\\k<\\1>")
         content.gsub!(pat, repl)
       end
 

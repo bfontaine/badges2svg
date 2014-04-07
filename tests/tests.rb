@@ -92,29 +92,41 @@ class BadgesToSVGTests < Test::Unit::TestCase
 
   ## travis
 
-  def test_replace_one_travis_https
+  def test_replace_one_travis_https_secure
     ct1 = "# README\n\nHello ![](https://secure.travis-ci.org/usr/re.png)"
-    ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re.svg)"
+    ct2 = "# README\n\nHello ![](https://travis-ci.org/usr/re.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_travis_https
+    ct1 = "# README\n\nHello ![](https://travis-ci.org/usr/re.png)"
+    ct2 = "# README\n\nHello ![](https://travis-ci.org/usr/re.svg)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
   def test_replace_one_travis_http
     ct1 = "# README\n\nHello ![](http://travis-ci.org/usr/re.png)"
-    ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re.svg)"
+    ct2 = "# README\n\nHello ![](https://travis-ci.org/usr/re.svg)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
   ## travis_branch
 
-  def test_replace_one_travis_branch_https
+  def test_replace_one_travis_branch_https_secure
     ct1 = "# README\n\nHello ![](https://secure.travis-ci.org/usr/re.png?branch=bx)"
-    ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re/bx.svg)"
+    ct2 = "# README\n\nHello ![](https://travis-ci.org/usr/re.svg?branch=bx)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_travis_branch_https
+    ct1 = "# README\n\nHello ![](https://travis-ci.org/usr/re.png?branch=bx)"
+    ct2 = "# README\n\nHello ![](https://travis-ci.org/usr/re.svg?branch=bx)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
   def test_replace_one_travis_branch_http
     ct1 = "# README\n\nHello ![](http://travis-ci.org/usr/re.png?branch=aa)"
-    ct2 = "# README\n\nHello ![](https://img.shields.io/travis/usr/re/aa.svg)"
+    ct2 = "# README\n\nHello ![](https://travis-ci.org/usr/re.svg?branch=aa)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
