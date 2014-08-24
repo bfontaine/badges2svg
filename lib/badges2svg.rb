@@ -10,8 +10,7 @@ module BadgesToSVG
   attr_reader :domain
 
   @protocol = 'https'
-
-  @domain = 'img.shields.io'
+  @domain   = 'img.shields.io'
 
   class << self
 
@@ -60,7 +59,8 @@ module BadgesToSVG
       {
         :name    => :gemnasium,
         :pattern => 'https?://gemnasium.com/%{user}/%{repo}.png',
-        :string  => '/gemnasium/%{user}/%{repo}.svg'
+        :string  =>  'gemnasium.com/%{user}/%{repo}.svg',
+        :domain  => true
       },
       {
         :name    => :code_climate,
@@ -88,7 +88,6 @@ module BadgesToSVG
         :pattern => 'https?://poser.pugx.org/%{user}/%{repo}/version.png',
         :string  => '/packagist/v/%{user}/%{repo}.svg'
       },
-
       {
         :name    => :packagist_downloads,
         :pattern => 'https?://poser.pugx.org/%{user}/%{repo}/d/total.png',
@@ -99,7 +98,13 @@ module BadgesToSVG
         :pattern => 'https?://pypip.in/d/%{repo}/badge.png',
         :string  => '/pypi/dm/%{repo}.svg'
       },
-
+      {
+        :name    => :inch_ci,
+        :pattern => 'http://inch-ci.org/github/%{user}/%{repo}.png\\?branch=%{branch}',
+        :string  => 'inch-ci.org/github/%{user}/%{repo}.svg?branch=%{branch}',
+        :domain  => true,
+        :protocol => 'http'
+      },
       {
         :name    => :misc_png,
         :pattern => 'https?://img.shields.io/%{path}.png',
@@ -129,7 +134,9 @@ module BadgesToSVG
     # @param pattern [String]
     # @return [Regexp] compiled pattern
     def compile_pattern(pattern)
-      patttern = pattern.gsub!(/\./, '\\.')
+      # don't use .gsub! here or it’ll modify the variable itself, outside of
+      # the function call
+      pattern = pattern.gsub(/\./, '\\.')
       Regexp.new ("\\b#{pattern.gsub(/%\{(\w+)\}/, "(?<\\1>.+?)")}\\b")
     end
 
@@ -145,7 +152,8 @@ module BadgesToSVG
       root = root_url(opts)
       RULES.each do |r|
         if r[:domain]
-          myroot = root_url({}.update(opts).update({:domain => ''}))
+          rule_opts = {:protocol => r[:protocol], :domain => ''}
+          myroot = root_url({}.update(opts).update(rule_opts))
         else
           myroot = root
         end

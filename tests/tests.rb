@@ -200,13 +200,13 @@ class BadgesToSVGTests < Test::Unit::TestCase
 
   def test_replace_one_gemnasium_http
     ct1 = "![](http://gemnasium.com/sferik/t.png)"
-    ct2 = "![](https://img.shields.io/gemnasium/sferik/t.svg)"
+    ct2 = "![](https://gemnasium.com/sferik/t.svg)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
   def test_replace_one_gemnasium_https
     ct1 = "![](https://gemnasium.com/sferik/t.png)"
-    ct2 = "![](https://img.shields.io/gemnasium/sferik/t.svg)"
+    ct2 = "![](https://gemnasium.com/sferik/t.svg)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
@@ -288,17 +288,25 @@ class BadgesToSVGTests < Test::Unit::TestCase
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
+  ## inch-ci
+
+  def test_replace_one_inch_ci
+    ct1 = '![Inline docs](http://inch-ci.org/github/bfontaine/Graphs.rb.png?branch=master)'
+    ct2 = '![Inline docs](http://inch-ci.org/github/bfontaine/Graphs.rb.svg?branch=master)'
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
   ## misc
 
   def test_replace_misc_png_http
     ct1 = "![](http://img.shields.io/foo/bar-qux/zzz.png)"
-    ct2 = ct1.sub(/\.png/, '.svg').sub(/http:/, 'https:')
+    ct2 = "![](https://img.shields.io/foo/bar-qux/zzz.svg)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
   def test_replace_misc_png_https
     ct1 = "![](https://img.shields.io/foo/bar-qux/zzz.png)"
-    ct2 = ct1.sub(/\.png/, '.svg').sub(/http:/, 'https:')
+    ct2 = "![](https://img.shields.io/foo/bar-qux/zzz.svg)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
