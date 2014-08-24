@@ -2,7 +2,8 @@
 
 ## in development
 
-* support for [new Travis SVG badges][travis-svg]
+* [new Travis SVG badges][travis-svg]
+* [inch-ci](http://inch-ci.org/)
 
 [travis-svg]: http://blog.travis-ci.com/2014-03-20-build-status-badges-support-svg/
 
