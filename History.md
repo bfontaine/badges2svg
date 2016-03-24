@@ -1,6 +1,6 @@
 # badges2svg History
 
-## in development
+## 0.1.4 / 2016-03-24
 
 * [new Travis SVG badges][travis-svg]
 * [inch-ci](http://inch-ci.org/)
