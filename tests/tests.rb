@@ -298,7 +298,7 @@ class BadgesToSVGTests < Test::Unit::TestCase
 
   def test_replace_one_inch_ci
     ct1 = '![Inline docs](http://inch-ci.org/github/bfontaine/Graphs.rb.png?branch=master)'
-    ct2 = '![Inline docs](http://inch-ci.org/github/bfontaine/Graphs.rb.svg?branch=master)'
+    ct2 = '![Inline docs](https://inch-ci.org/github/bfontaine/Graphs.rb.svg?branch=master)'
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 

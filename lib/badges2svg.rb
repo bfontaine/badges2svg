@@ -99,10 +99,9 @@ module BadgesToSVG
       },
       {
         :name    => :inch_ci,
-        :pattern => 'http://inch-ci.org/github/%{user}/%{repo}.png\\?branch=%{branch}',
+        :pattern => 'https?://inch-ci.org/github/%{user}/%{repo}.png\\?branch=%{branch}',
         :string  => 'inch-ci.org/github/%{user}/%{repo}.svg?branch=%{branch}',
         :domain  => true,
-        :protocol => 'http'
       },
       {
         :name    => :misc_png,
