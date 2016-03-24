@@ -112,7 +112,7 @@ module BadgesToSVG
 
     # @return [String] current gem version
     def version
-      '0.1.3'
+      '0.1.4'
     end
 
     # Create a root URL. If nothing is passed, it uses the default protocol and
