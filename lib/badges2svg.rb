@@ -20,12 +20,11 @@ module BadgesToSVG
     # - +:name+: the rule's name. This must be unique.
     # - +:pattern+ the PNG URL pattern. See {BadgesToSVG#compile_pattern} for a
     #   pattern overview.
-    # - +:string+ the URL replacement. It should start with a slash (+/+)
-    #   because by default URLs are under the +http://shields.io+ domain (see
-    #   {#domain}). If you wish to link to a different domain, use it but don't
-    #   include the protocol part (e.g. +http://+)
+    # - +:string+ the URL replacement. The protocol shouldn't be specified. If
+    #   you wish to use the +shields.io+ start your replacement with a slash
+    #   (+/+).
     # - +:domain+ (optional): if you specified a custom domain in the +:string+
-    #   key, set this one to +true+ to tell +BadgesToSVG+ to not prepend the
+    #   key, set this one to +true+ to tell +BadgesToSVG+ not to prepend the
     #   default domain.
     RULES = [
       { :name    => :travis_branch,
@@ -41,9 +40,9 @@ module BadgesToSVG
         :domain  => true
       },
       {
-        :name    => :gittip,
-        :pattern => 'https?://img.shields.io/gittip/%{user}.png',
-        :string  => '/gittip/%{user}.svg'
+        :name    => :gratipay,
+        :pattern => 'https?://img.shields.io/gittip/%{user}.(?:png|svg)',
+        :string  => '/gratipay/user/%{user}.svg'
       },
       {
         :name    => :coveralls_branch,

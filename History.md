@@ -4,6 +4,7 @@
 
 * [new Travis SVG badges][travis-svg]
 * [inch-ci](http://inch-ci.org/)
+* Gittip renamed to Gratipay
 
 [travis-svg]: http://blog.travis-ci.com/2014-03-20-build-status-badges-support-svg/
 

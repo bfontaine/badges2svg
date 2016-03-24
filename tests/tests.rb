@@ -130,17 +130,23 @@ class BadgesToSVGTests < Test::Unit::TestCase
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
-  ## gittip
+  ## gratipay
 
-  def test_replace_one_gittip_http
+  def test_replace_one_gittip_gratipay_http
     ct1 = "here is a badge: ![](http://img.shields.io/gittip/sferik.png)"
-    ct2 = "here is a badge: ![](https://img.shields.io/gittip/sferik.svg)"
+    ct2 = "here is a badge: ![](https://img.shields.io/gratipay/user/sferik.svg)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
-  def test_replace_one_gittip_https
+  def test_replace_one_gittip_gratipay_https
     ct1 = "here is a badge: ![](https://img.shields.io/gittip/sferik.png)"
-    ct2 = "here is a badge: ![](https://img.shields.io/gittip/sferik.svg)"
+    ct2 = "here is a badge: ![](https://img.shields.io/gratipay/user/sferik.svg)"
+    assert_equal(ct2, BadgesToSVG.replace(ct1))
+  end
+
+  def test_replace_one_gittip_gratipay_svg
+    ct1 = "here is a badge: ![](http://img.shields.io/gittip/sferik.svg)"
+    ct2 = "here is a badge: ![](https://img.shields.io/gratipay/user/sferik.svg)"
     assert_equal(ct2, BadgesToSVG.replace(ct1))
   end
 
