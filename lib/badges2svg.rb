@@ -23,21 +23,16 @@ module BadgesToSVG
     # - +:string+ the URL replacement. The protocol shouldn't be specified. If
     #   you wish to use the +shields.io+ start your replacement with a slash
     #   (+/+).
-    # - +:domain+ (optional): if you specified a custom domain in the +:string+
-    #   key, set this one to +true+ to tell +BadgesToSVG+ not to prepend the
-    #   default domain.
     RULES = [
       { :name    => :travis_branch,
         :pattern => 'https?://(?:secure.)?travis-ci.org/%{user}/%{repo}.png' +
                       '\\?branch=%{branch}',
         :string  => 'travis-ci.org/%{user}/%{repo}.svg?branch=%{branch}',
-        :domain  => true
       },
       {
         :name    => :travis,
         :pattern => 'https?://(?:secure.)?travis-ci.org/%{user}/%{repo}.png',
         :string  => 'travis-ci.org/%{user}/%{repo}.svg',
-        :domain  => true
       },
       {
         :name    => :gratipay,
@@ -59,7 +54,6 @@ module BadgesToSVG
         :name    => :gemnasium,
         :pattern => 'https?://gemnasium.com/%{user}/%{repo}.png',
         :string  =>  'gemnasium.com/%{user}/%{repo}.svg',
-        :domain  => true
       },
       {
         :name    => :code_climate,
@@ -101,7 +95,6 @@ module BadgesToSVG
         :name    => :inch_ci,
         :pattern => 'https?://inch-ci.org/github/%{user}/%{repo}.png\\?branch=%{branch}',
         :string  => 'inch-ci.org/github/%{user}/%{repo}.svg?branch=%{branch}',
-        :domain  => true,
       },
       {
         :name    => :misc_png,
@@ -149,7 +142,7 @@ module BadgesToSVG
     def replace(content, opts={})
       root = root_url(opts)
       RULES.each do |r|
-        if r[:domain]
+        unless r[:string].start_with? "/"
           rule_opts = {:protocol => r[:protocol], :domain => ''}
           myroot = root_url({}.update(opts).update(rule_opts))
         else
